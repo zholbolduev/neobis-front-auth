@@ -18,18 +18,17 @@ const RegisterFeatures = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { error } = useAppSelector((state) => state.loginSlice);
+  const { error } = useAppSelector((state) => state.registerSlice);
 
   const initialValues: IRegister = {
     email: "",
-    userName: "",
+    username: "",
     password: "",
     confirmPassword: "",
   };
 
   const handleSubmit = (values: IRegister) => {
     console.log(values);
-
     dispatch(RegisterAction(values));
   };
 
@@ -47,6 +46,10 @@ const RegisterFeatures = () => {
     return isValid ? "✅" : "❌";
   };
 
+  const handleButtonClick = () => {
+    handleSubmit();
+  };
+
   return (
     <div className="register">
       <img className="register--background" src={background} alt="Background" />
@@ -60,7 +63,7 @@ const RegisterFeatures = () => {
         validationSchema={registerSchema}
         onSubmit={handleSubmit}
       >
-        {({ values }) => (
+        {({ values, isSubmitting }) => (
           <Form className="register__form">
             <h1>Создать аккаунт Lorby</h1>
 
@@ -72,11 +75,11 @@ const RegisterFeatures = () => {
             <ErrorMessage name="email" component="p" />
 
             <Field
-              name="userName"
+              name="username"
               placeholder="Придумай логин"
               className="register__form--inputs"
             />
-            <ErrorMessage name="userName" component="p" />
+            <ErrorMessage name="username" component="p" />
 
             <label className="register__form__pass">
               <Field
@@ -138,8 +141,13 @@ const RegisterFeatures = () => {
               />
             </label>
 
-            <button className="register__form--btn" type="submit">
-              Submit
+            <button
+              className="register__form--btn"
+              type="submit"
+              disabled={isSubmitting}
+              onClick={handleButtonClick}
+            >
+              Зарегистрироваться
             </button>
             <p>{error}</p>
           </Form>

@@ -3,6 +3,7 @@ import { schema } from "./types";
 import { AppDispatch } from "../../../app/rootStore";
 import { loginFeaturesSlice } from "./LoginFeaturesSlice";
 import { ITokens } from "../types";
+import { baseAPI } from "../../../shared/BaseAPI";
 
 export const LoginAction =
   (
@@ -16,7 +17,10 @@ export const LoginAction =
     try {
       await schema.validate(data);
 
-      const response = await axios.post<ITokens>("", data);
+      const response = await axios.post<ITokens>(
+        `${baseAPI}/auth/sign-in`,
+        data
+      );
       console.log(response.data);
 
       localStorage.setItem("user", JSON.stringify(response.data));

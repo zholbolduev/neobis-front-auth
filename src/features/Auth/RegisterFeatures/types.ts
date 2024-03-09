@@ -1,34 +1,27 @@
-import * as yup from "yup";
+import * as Yup from "yup";
 
-export const registerSchema = yup.object().shape({
-  username: yup
-    .string()
-    .required("Имя пользователя обязательно")
-    .min(3, "Минимальная длина имени пользователя - 3 символа"),
-  email: yup
-    .string()
-    .email("Некорректный адрес электронной почты")
-    .required("Email обязателен"),
-  password: yup
-    .string()
-    .required("Пароль обязателен")
-    .min(8, "Минимальная длина пароля - 8 символов")
-    .max(15, "Максимальная длина пароля - 15 символов")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-      "Пароль должен содержать минимум одну строчную букву, одну заглавную букву, одну цифру и один специальный символ"
-    ),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), undefined], "Пароли должны совпадать")
-    .required("Подтвердите пароль"),
+export const registerSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Введите корректный адрес почты")
+    .required("Поле обязательно для заполнения email"),
+  username: Yup.string().required("Поле обязательно для заполнения username"),
+  password: Yup.string()
+    .required("Поле обязательно для заполнения password")
+    .min(8, "Пароль должен содержать минимум 8 символов")
+    .matches(/[a-z]/, "Пароль должен содержать минимум одну строчную букву")
+    .matches(/[A-Z]/, "Пароль должен содержать минимум одну прописную букву")
+    .matches(/\d/, "Пароль должен содержать минимум одну цифру")
+    .matches(/[!@#$%^&*]/, "Пароль должен содержать минимум один спецсимвол"),
+  confirmPassword: Yup.string()
+    .required("Поле обязательно для заполнения confirm-password")
+    .oneOf([Yup.ref("password")], "Пароли должны совпадать"),
 });
 
 // --------------TYPES-------------
 
 export interface IRegister {
   email: string;
-  userName: string;
+  username: string;
   password: string;
   confirmPassword: string;
 }
