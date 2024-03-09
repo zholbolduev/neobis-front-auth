@@ -46,8 +46,19 @@ const RegisterFeatures = () => {
     return isValid ? "✅" : "❌";
   };
 
-  const handleButtonClick = () => {
-    handleSubmit();
+  const handleButtonClick: React.MouseEventHandler<HTMLButtonElement> = (
+    event
+  ) => {
+    event.preventDefault();
+    const form = event.currentTarget.form as HTMLFormElement;
+    const formData = new FormData(form);
+    const values: IRegister = {
+      email: formData.get("email") as string,
+      username: formData.get("username") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+    };
+    handleSubmit(values);
   };
 
   return (
