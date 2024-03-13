@@ -3,7 +3,6 @@ import { AppDispatch } from "../../../app/rootStore";
 import { ITokens } from "../types";
 import { registerSchema } from "./types";
 import { setLoading, setData, setError } from "./RegisterFeaturesSlice";
-import { sendConfirmationEmail } from "./email";
 import { baseAPI } from "../../../shared/BaseAPI";
 
 export const RegisterAction =
@@ -20,12 +19,10 @@ export const RegisterAction =
       await registerSchema.validate(data);
 
       const response = await axios.post<ITokens>(
-        `${baseAPI}/auth/sign-up`,
+        `${baseAPI}/api/v1/users/sign-up`,
         data
       );
       console.log(response.data);
-
-      sendConfirmationEmail(data.email, data.username);
 
       dispatch(setData(response.data));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

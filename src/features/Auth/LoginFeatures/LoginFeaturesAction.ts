@@ -18,7 +18,7 @@ export const LoginAction =
       await schema.validate(data);
 
       const response = await axios.post<ITokens>(
-        `${baseAPI}/auth/sign-in`,
+        `${baseAPI}/api/v1/users/sign-in`,
         data
       );
       console.log(response.data);

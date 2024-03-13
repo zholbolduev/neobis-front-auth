@@ -1,1 +1,1 @@
-export const baseAPI = "https://authproject-production.up.railway.app/api/v1";
+export const baseAPI = "https://neobis-auth-project-production.up.railway.app";
