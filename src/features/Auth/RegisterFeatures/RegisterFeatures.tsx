@@ -74,7 +74,7 @@ const RegisterFeatures = () => {
     <div className="register">
       <img className="register--background" src={background} alt="Background" />
 
-      <Link className="link" to={"/login"}>
+      <Link className="link" to={"/"}>
         <img className="link__img" src={leftArrow} alt="Left Arrow" />
         Назад
       </Link>
