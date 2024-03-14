@@ -35,7 +35,7 @@ const HomePage = () => {
 
         <span>Точно выйти?</span>
 
-        <Link to={"/login"}>
+        <Link to={"/"}>
           <button className="btn" onClick={closeModal}>
             Да, точно
           </button>

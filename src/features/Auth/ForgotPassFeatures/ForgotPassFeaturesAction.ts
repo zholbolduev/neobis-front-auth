@@ -14,7 +14,6 @@ export const ForgotAction =
         throw new Error("Токен доступа не найден в localStorage");
       }
 
-      // Отправка запроса на сброс пароля с использованием токена доступа
       const response = await axios.post(
         `${baseAPI}/api/v1/users/request-password-reset?email=${email}`,
         {},

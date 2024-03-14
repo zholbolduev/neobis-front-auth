@@ -33,7 +33,7 @@ const ForgotPassFeatures = () => {
         alt="Background"
       />
 
-      <Link className="link" to={"/login"}>
+      <Link className="link" to={"/"}>
         <img className="link__img" src={leftArrow} alt="Left Arrow" />
         Назад
       </Link>
