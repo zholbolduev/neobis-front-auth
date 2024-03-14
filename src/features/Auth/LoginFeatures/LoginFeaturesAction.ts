@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import axios from "axios";
 import { schema } from "./validation";
 import { AppDispatch } from "../../../app/rootStore";
@@ -10,8 +11,8 @@ export const LoginAction =
     data: { email: string; password: string },
     // eslint-disable-next-line @typescript-eslint/ban-types
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    reset: Function
+    reset: Function,
+    setIsLoggedIn: Function
   ) =>
   async (dispatch: AppDispatch) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -31,7 +32,7 @@ export const LoginAction =
 
       dispatch(loginFeaturesSlice.actions.setData(response.data));
 
-      window.location.href = "/home";
+      setIsLoggedIn(true);
 
       //   eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

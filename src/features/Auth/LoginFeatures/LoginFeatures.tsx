@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import background from "../../../shared/assets/Photo background.svg";
 import "./LoginFeatures.scss";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,11 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginFeatures = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -35,13 +39,19 @@ const LoginFeatures = () => {
 
   const watchAllFields = watch();
 
+  if (isLoggedIn) {
+    navigate("/home");
+  }
+
   return (
     <div className="login">
       <img className="login--background" src={background} alt="Background" />
 
       <form
         className="login__form"
-        onSubmit={handleSubmit((data) => dispatch(LoginAction(data, reset)))}
+        onSubmit={handleSubmit((data) =>
+          dispatch(LoginAction(data, reset, setIsLoggedIn))
+        )}
       >
         <h1>Вэлком бэк!</h1>
         <input

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import background from "../../../shared/assets/Photo background.svg";
 import "./RegisterFeatures.scss";
 import { useState } from "react";
@@ -17,6 +17,9 @@ import { registerSchema } from "./validation";
 const RegisterFeatures = () => {
   const dispatch = useAppDispatch();
 
+  const [isRegisted, setIsRegisted] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -31,7 +34,7 @@ const RegisterFeatures = () => {
 
   const handleSubmit = (values: IRegister) => {
     console.log(values);
-    dispatch(RegisterAction(values));
+    dispatch(RegisterAction(values, setIsRegisted));
   };
 
   const validatePassword = (password: string) => {
@@ -62,6 +65,10 @@ const RegisterFeatures = () => {
     };
     handleSubmit(values);
   };
+
+  if (isRegisted) {
+    navigate("/confirm");
+  }
 
   return (
     <div className="register">
