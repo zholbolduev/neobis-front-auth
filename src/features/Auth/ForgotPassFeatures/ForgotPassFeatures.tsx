@@ -60,7 +60,7 @@ const ForgotPassFeatures = () => {
           >
             {loading ? "Отправить..." : "Отправить"}
           </button>
-          {error && <p>{error}</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
       </div>
     </div>
