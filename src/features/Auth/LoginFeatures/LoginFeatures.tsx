@@ -7,13 +7,12 @@ import { useState } from "react";
 import eyeClosed from "../../../shared/assets/eyeClosed.svg";
 import eyeOpened from "../../../shared/assets/eyeOpened.svg";
 import { ILogin } from "./types";
-import { schema } from "./types";
+import { schema } from "./validation";
 import { LoginAction } from "./LoginFeaturesAction";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../shared/hooks/reduxHooks";
-// import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginFeatures = () => {
@@ -28,15 +27,13 @@ const LoginFeatures = () => {
     formState: { errors, isValid },
     handleSubmit,
     reset,
+    watch,
   } = useForm<ILogin>({
     resolver: yupResolver(schema),
     mode: "onBlur",
   });
 
-  // toast.success("Успешно!", {
-  //   position: toast.POSITION.TOP_RIGHT,
-  //   autoClose: 2000,
-  // });
+  const watchAllFields = watch();
 
   return (
     <div className="login">
@@ -52,7 +49,9 @@ const LoginFeatures = () => {
           placeholder="Введи туда-сюда логин"
           {...register("email")}
         />
-        {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
+        {errors?.email && (
+          <p style={{ color: "red" }}>{errors?.email?.message || "Error!"}</p>
+        )}
 
         <label className="login__form__pass">
           <input
@@ -64,20 +63,43 @@ const LoginFeatures = () => {
           <img
             onClick={() => setShowPassword(!showPassword)}
             src={showPassword ? eyeClosed : eyeOpened}
-            alt=""
+            alt="Eye"
           />
         </label>
 
-        {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
+        {errors?.password && (
+          <p style={{ color: "red" }}>
+            {errors?.password?.message || "Error!"}
+          </p>
+        )}
 
-        <button className="login__form--btn" type="submit" disabled={!isValid}>
+        <button
+          className={
+            !errors.email &&
+            !errors.password &&
+            watchAllFields.email &&
+            watchAllFields.password
+              ? "login__form--fullbtn"
+              : "login__form--emptyBtn"
+          }
+          type="submit"
+          disabled={!isValid}
+        >
           Войти
         </button>
         <p>{error}</p>
 
-        <Link className="link" to={"/register"}>
-          У меня еще нет аккаунта
-        </Link>
+        <div>
+          <Link className="forgotPassBtn" to={"/forgot-password"}>
+            Забыл(а) пароль?
+          </Link>
+        </div>
+
+        <div style={{ marginTop: "20px" }}>
+          <Link className="noAccountBtn" to={"/register"}>
+            У меня еще нет аккаунта
+          </Link>
+        </div>
       </form>
     </div>
   );

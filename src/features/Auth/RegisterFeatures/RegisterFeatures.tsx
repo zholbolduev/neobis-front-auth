@@ -1,18 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import background from "../../../shared/assets/Photo background.svg";
 import "./RegisterFeatures.scss";
 import { useState } from "react";
 import eyeClosed from "../../../shared/assets/eyeClosed.svg";
 import eyeOpened from "../../../shared/assets/eyeOpened.svg";
-import { IRegister, registerSchema } from "./types";
+import { IRegister } from "./types";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../shared/hooks/reduxHooks";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { RegisterAction } from "./RegisterFeaturesAction";
+import leftArrow from "../../../shared/assets/Left-arrow.svg";
+import { registerSchema } from "./validation";
 
 const RegisterFeatures = () => {
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -43,7 +47,7 @@ const RegisterFeatures = () => {
   };
 
   const getPasswordValidationIcon = (isValid: boolean) => {
-    return isValid ? "✅" : "❌";
+    return isValid ? " ✅" : " ❌";
   };
 
   const handleButtonClick: React.MouseEventHandler<HTMLButtonElement> = (
@@ -59,13 +63,15 @@ const RegisterFeatures = () => {
       confirmPassword: formData.get("confirmPassword") as string,
     };
     handleSubmit(values);
+    navigate("/confirm");
   };
 
   return (
     <div className="register">
       <img className="register--background" src={background} alt="Background" />
 
-      <Link className="link" to={"/"}>
+      <Link className="link" to={"/login"}>
+        <img className="link__img" src={leftArrow} alt="Left Arrow" />
         Назад
       </Link>
 
@@ -83,14 +89,18 @@ const RegisterFeatures = () => {
               name="email"
               placeholder="Введи адрес почты"
             />
-            <ErrorMessage name="email" component="p" />
+            <ErrorMessage name="email" component="p" className="errorMessage" />
 
             <Field
               name="username"
               placeholder="Придумай логин"
               className="register__form--inputs"
             />
-            <ErrorMessage name="username" component="p" />
+            <ErrorMessage
+              name="username"
+              component="p"
+              className="errorMessage"
+            />
 
             <label className="register__form__pass">
               <Field
@@ -99,41 +109,72 @@ const RegisterFeatures = () => {
                 placeholder="Создай пароль"
                 type={showPassword ? "text" : "password"}
               />
-              <ErrorMessage name="password" component="p" />
+
+              <ErrorMessage
+                name="password"
+                component="p"
+                className="errorMessage"
+              />
+
+              <img
+                className="createPass"
+                onClick={() => setShowPassword(!showPassword)}
+                src={showPassword ? eyeClosed : eyeOpened}
+                alt="Eye"
+              />
 
               <ul className="passwordIndicators">
-                <li>
+                <li
+                  className={
+                    validatePassword(values.password).validLength
+                      ? "passwordIndicators--successText"
+                      : "passwordIndicators--errorText"
+                  }
+                >
                   От 8 до 15 символов
                   {getPasswordValidationIcon(
                     validatePassword(values.password).validLength
                   )}
                 </li>
-                <li>
+                <li
+                  className={
+                    validatePassword(values.password).hasLowercase &&
+                    validatePassword(values.password).hasUppercase
+                      ? "passwordIndicators--successText"
+                      : "passwordIndicators--errorText"
+                  }
+                >
                   Строчные и прописные буквы
                   {getPasswordValidationIcon(
                     validatePassword(values.password).hasLowercase &&
                       validatePassword(values.password).hasUppercase
                   )}
                 </li>
-                <li>
+                <li
+                  className={
+                    validatePassword(values.password).hasNumber
+                      ? "passwordIndicators--successText"
+                      : "passwordIndicators--errorText"
+                  }
+                >
                   Минимум 1 цифра
                   {getPasswordValidationIcon(
                     validatePassword(values.password).hasNumber
                   )}
                 </li>
-                <li>
+                <li
+                  className={
+                    validatePassword(values.password).hasSpecialChar
+                      ? "passwordIndicators--successText"
+                      : "passwordIndicators--errorText"
+                  }
+                >
                   Минимум 1 спецсимвол (!, ", #, $...)
                   {getPasswordValidationIcon(
                     validatePassword(values.password).hasSpecialChar
                   )}
                 </li>
               </ul>
-
-              <img
-                onClick={() => setShowPassword(!showPassword)}
-                src={showPassword ? eyeClosed : eyeOpened}
-                alt="Eye"
-              />
             </label>
 
             <label className="register__form__pass">
@@ -143,23 +184,36 @@ const RegisterFeatures = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Повтори пароль"
               />
-              <ErrorMessage name="confirmPassword" component="p" />
 
               <img
+                className="confirmPass"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 src={showConfirmPassword ? eyeClosed : eyeOpened}
                 alt="Eye"
               />
             </label>
+            <ErrorMessage
+              name="confirmPassword"
+              component="p"
+              className="errorMessage"
+            />
 
             <button
-              className="register__form--btn"
+              className={
+                values.email &&
+                values.username &&
+                values.password &&
+                values.confirmPassword
+                  ? "register__form--fullBtn"
+                  : "register__form--emptyBtn"
+              }
               type="submit"
               disabled={isSubmitting}
               onClick={handleButtonClick}
             >
               Зарегистрироваться
             </button>
+
             <p>{error}</p>
           </Form>
         )}

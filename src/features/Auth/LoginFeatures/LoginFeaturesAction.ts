@@ -1,5 +1,5 @@
 import axios from "axios";
-import { schema } from "./types";
+import { schema } from "./validation";
 import { AppDispatch } from "../../../app/rootStore";
 import { loginFeaturesSlice } from "./LoginFeaturesSlice";
 import { ITokens } from "../types";

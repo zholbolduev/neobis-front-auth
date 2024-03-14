@@ -1,0 +1,58 @@
+.confirm {
+  display: flex;
+  align-items: center;
+  position: fixed;
+
+  &--background {
+    height: 800px;
+    margin-top: -50px;
+  }
+
+  &__textBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -80px;
+
+    > span {
+      font-size: 20px;
+    }
+
+    > p {
+      margin-top: 30px;
+      width: 40%;
+      margin-left: 39px;
+    }
+
+    .emoji {
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.link {
+  color: #292929;
+  text-decoration: none;
+  margin-bottom: auto;
+  margin-top: 50px;
+  width: 90px;
+}
+
+.link__img {
+  margin-bottom: -10px;
+  transition: margin-left 0.3s ease; /* Добавляем анимацию для свойства margin-left */
+}
+
+.link:hover .link__img {
+  margin-left: -5px; /* Сдвигаем изображение влево при наведении */
+}
+
+.link:hover {
+  color: #595959;
+}
+
+.link:last-child {
+  font-size: 20px;
+  margin-left: 34px;
+}

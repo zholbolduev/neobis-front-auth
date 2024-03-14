@@ -10,7 +10,7 @@
 
   &__form {
     width: 350px;
-    margin-left: 200px;
+    margin-left: 130px;
     margin-top: -30px;
 
     > h1 {
@@ -38,28 +38,63 @@
         > li {
           font-size: 12px;
         }
+
+        &--successText {
+          color: rgb(33, 195, 33);
+        }
+
+        &--errorText {
+          color: red;
+        }
       }
 
-      > img {
+      .confirmPass {
         position: absolute;
         top: -4px;
         right: 10px;
         left: auto;
         cursor: pointer;
       }
+
+      .createPass {
+        position: absolute;
+        top: -4px;
+        left: 310px;
+        cursor: pointer;
+      }
     }
 
-    &--btn {
+    &--fullBtn {
+      background-color: #292929;
       height: 50px;
       width: 100%;
       border-radius: 10px;
       border: none;
-      background-color: #292929;
       padding: 5px;
       margin-top: 10px;
       color: #fff;
       font-size: 20px;
       cursor: pointer;
+      margin-bottom: 60px;
+      margin-top: 50px;
+    }
+
+    &--fullBtn:hover {
+      background-color: #595959;
+      transition: 200ms;
+    }
+
+    &--emptyBtn {
+      background-color: #d7d7d7;
+      height: 50px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      padding: 5px;
+      margin-top: 10px;
+      color: #fff;
+      font-size: 20px;
+      cursor: not-allowed;
       margin-bottom: 60px;
       margin-top: 50px;
     }
@@ -71,8 +106,22 @@
   text-decoration: none;
   margin-bottom: auto;
   margin-top: 50px;
+  width: 80px;
+}
+
+.link__img {
+  margin-bottom: -10px;
+  transition: margin-left 0.3s ease; /* Добавляем анимацию для свойства margin-left */
+}
+
+.link:hover .link__img {
+  margin-left: -5px; /* Сдвигаем изображение влево при наведении */
 }
 
 .link:hover {
-  color: blue;
+  color: #595959;
+}
+
+.errorMessage {
+  color: red;
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AppDispatch } from "../../../app/rootStore";
 import { ITokens } from "../types";
-import { registerSchema } from "./types";
+import { registerSchema } from "./validation";
 import { setLoading, setData, setError } from "./RegisterFeaturesSlice";
 import { baseAPI } from "../../../shared/BaseAPI";
 

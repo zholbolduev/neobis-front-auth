@@ -41,7 +41,7 @@
       }
     }
 
-    &--btn {
+    &--fullbtn {
       height: 50px;
       width: 100%;
       border-radius: 10px;
@@ -52,18 +52,50 @@
       color: #fff;
       font-size: 20px;
       cursor: pointer;
-      margin-bottom: 60px;
+      margin-bottom: 30px;
       margin-top: 50px;
     }
 
-    .link {
-      margin-left: 80px;
-      color: #292929;
-      text-decoration: none;
+    &--fullbtn:hover {
+      background-color: #595959;
+      transition: 200ms;
     }
 
-    .link:hover {
-      color: blue;
+    &--emptyBtn {
+      height: 50px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      background-color: #d7d7d7;
+      padding: 5px;
+      margin-top: 10px;
+      color: #fff;
+      font-size: 20px;
+      cursor: not-allowed;
+      margin-bottom: 30px;
+      margin-top: 50px;
     }
   }
+}
+
+.noAccountBtn {
+  margin-left: 58px;
+  color: #292929;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.noAccountBtn:hover {
+  color: #595959;
+}
+
+.forgotPassBtn {
+  margin-left: 93px;
+  color: #292929;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.forgotPassBtn:hover {
+  color: #595959;
 }
