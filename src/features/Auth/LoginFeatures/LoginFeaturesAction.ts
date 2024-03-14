@@ -9,9 +9,13 @@ export const LoginAction =
   (
     data: { email: string; password: string },
     // eslint-disable-next-line @typescript-eslint/ban-types
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
     reset: Function
   ) =>
   async (dispatch: AppDispatch) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     dispatch(loginFeaturesSlice.actions.setLoading());
 
     try {
@@ -26,6 +30,8 @@ export const LoginAction =
       localStorage.setItem("user", JSON.stringify(response.data));
 
       dispatch(loginFeaturesSlice.actions.setData(response.data));
+
+      window.location.href = "/home";
 
       //   eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

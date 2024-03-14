@@ -16,6 +16,7 @@ const AppRouter = () => {
       setVisited(true);
     } else {
       localStorage.setItem("visited", "true");
+      setVisited(true);
     }
   }, []);
 

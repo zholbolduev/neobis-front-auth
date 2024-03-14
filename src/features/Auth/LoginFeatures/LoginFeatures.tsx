@@ -87,7 +87,8 @@ const LoginFeatures = () => {
         >
           Войти
         </button>
-        <p>{error}</p>
+
+        <p style={{ color: "red" }}>{error}</p>
 
         <div>
           <Link className="forgotPassBtn" to={"/forgot-password"}>

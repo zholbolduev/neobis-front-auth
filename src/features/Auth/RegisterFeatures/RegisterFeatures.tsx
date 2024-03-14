@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import background from "../../../shared/assets/Photo background.svg";
 import "./RegisterFeatures.scss";
 import { useState } from "react";
@@ -15,8 +15,6 @@ import leftArrow from "../../../shared/assets/Left-arrow.svg";
 import { registerSchema } from "./validation";
 
 const RegisterFeatures = () => {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -63,7 +61,6 @@ const RegisterFeatures = () => {
       confirmPassword: formData.get("confirmPassword") as string,
     };
     handleSubmit(values);
-    navigate("/confirm");
   };
 
   return (
@@ -214,7 +211,7 @@ const RegisterFeatures = () => {
               Зарегистрироваться
             </button>
 
-            <p>{error}</p>
+            <p style={{ color: "red" }}>{error}</p>
           </Form>
         )}
       </Formik>

@@ -8,9 +8,24 @@ export const ForgotAction =
   (email: string) => async (dispatch: AppDispatch) => {
     dispatch(setLoading());
     try {
+      const accessToken = localStorage.getItem("user");
+
+      if (!accessToken) {
+        throw new Error("Токен доступа не найден в localStorage");
+      }
+
+      // Отправка запроса на сброс пароля с использованием токена доступа
       const response = await axios.post(
-        `${baseAPI}/api/v1/users/request-password-reset?email=${email}`
+        `${baseAPI}/api/v1/users/request-password-reset?email=${email}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
+
       console.log(response.data);
     } catch (error: any) {
       dispatch(setError(error.message || "Произошла ошибка при сбросе пароля"));
